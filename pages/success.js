@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
 import {BsBagCheckFill} from 'react-icons/bs';
+import { runFireWorks } from '../lib/utils';
 
 import { useStateContext } from '../context/StateContext'
 
@@ -12,6 +13,7 @@ const Success = () => {
         setCartItems([]);
         setTotalPrice(0);
         setTotalQuantities(0);
+        runFireWorks()
     },[])
 
   return (
