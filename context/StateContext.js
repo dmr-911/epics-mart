@@ -67,6 +67,14 @@ export const StateContext = ({ children }) => {
     }
   };
   
+  const onRemove = (product) =>{
+    const foundProduct = cartItems.find(item => item._id === product._id);
+    const newCartItems = cartItems.filter(item => item._id !== product._id);
+
+    setTotalPrice(prev => prev - foundProduct.price * foundProduct.quantity);
+    setTotalQuantities(prev => prev - foundProduct.quantity);
+    setCartItems(newCartItems);
+  };
 
   const incQty = () => {
     setQty((prev) => prev + 1);
@@ -91,6 +99,7 @@ export const StateContext = ({ children }) => {
         decQty,
         onAdd,
         toggleCartItemQuantity,
+        onRemove
       }}
     >
       {children}
