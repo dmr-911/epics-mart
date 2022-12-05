@@ -10,10 +10,16 @@ import { useStateContext } from "../../context/StateContext";
 import { urlFor, client } from "../../lib/client";
 
 const Details = ({ product, products }) => {
-  const { incQty, decQty, qty, onAdd } = useStateContext();
+  const { incQty, decQty, qty, onAdd, setShowCart } = useStateContext();
   const { image, name, details, price } = product;
 
   const [index, setIndex] = useState(0);
+
+  const handleBuyNow = () =>{
+    onAdd(product, qty);
+
+    setShowCart(true);
+  };
 
   return (
     <div>
@@ -77,7 +83,7 @@ const Details = ({ product, products }) => {
             <button
               type="button"
               className="buy-now"
-              // onClick={handleBuyNow}
+              onClick={handleBuyNow}
             >
               Buy Now
             </button>
@@ -127,8 +133,6 @@ export const getStaticProps = async ({ params: { slug } }) => {
 
   const product = await client.fetch(query);
   const products = await client.fetch(productsQuery);
-
-  console.log(product);
 
   return {
     props: { products, product },
